@@ -1,0 +1,17 @@
+.player{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+gap: 2rem;
+border: 1px solid #ccc;
+border-radius: 1rem;
+padding: 1rem;
+width: 80%;
+}
+.uploadSection{
+
+}
+.listSection{
+
+}
