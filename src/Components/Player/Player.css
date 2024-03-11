@@ -10,8 +10,15 @@ padding: 1rem;
 width: 80%;
 }
 .uploadSection{
-
 }
 .listSection{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.playlistTile{
+    display: flex;
+    flex-direction: column;
 
 }
