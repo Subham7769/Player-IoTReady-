@@ -11,11 +11,9 @@ import IconButton from '@mui/material/IconButton';
 import PlayCircleFilledWhiteRoundedIcon from '@mui/icons-material/PlayCircleFilledWhiteRounded';
 
 const Player = () => {
-  
-  const [playlist, setPlaylist] = useState([{
-    name: 'playlist',
-    author:"shubham"
-  }]);
+
+  const [url, setUrl] = useState();
+  const [playlist, setPlaylist] = useState([]);
   const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
     clipPath: 'inset(50%)',
@@ -27,9 +25,33 @@ const Player = () => {
     whiteSpace: 'nowrap',
     width: 1,
   });
-  const handleChange = ()=>{
-    alert('Please select');
-  }
+
+  const handleChange = (e) => {
+    const files = e.target.files;
+  
+    Promise.all(Array.from(files).map(file => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          resolve({ name: file.name, url: event.target.result });
+        };
+        reader.onerror = function(error) {
+          reject(error);
+        };
+        reader.readAsDataURL(file);
+      });
+    })).then(newPlaylist => {
+      setPlaylist(prevList => [...prevList, ...newPlaylist]);
+      alert('Playlist Created');
+    }).catch(error => {
+      console.error('Error reading file:', error);
+    });
+  };
+  
+  const handleClick = (url) => {
+    console.log(playlist)
+    setUrl(url);
+  };
 
   return (
     <div className="player">
@@ -41,31 +63,38 @@ const Player = () => {
           variant="contained"
           tabIndex={-1}
           startIcon={<CloudUploadIcon />}
-          
         >
           Upload file
-          <VisuallyHiddenInput type="file" id="uploadedFile" onChange={handleChange}/>
+          <VisuallyHiddenInput type="file" id="uploadedFile" accept=".mp3" multiple onChange={handleChange} />
         </Button>
       </div>
       <div className="listSection">
-      <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-      {playlist.map((item,index) => (
-        <ListItem
-          key={item+index}
-          disableGutters
-          secondaryAction={
-            <IconButton aria-label="play">
-              <PlayCircleFilledWhiteRoundedIcon />
-            </IconButton>
-          }
-        >
-          <ListItemText primary={item.name} />
-        </ListItem>
-      ))}
-    </List>
+        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+          {playlist.map((item, index) => (
+            <ListItem
+              key={index}
+              disableGutters
+              onClick={() => handleClick(item.url)}
+              secondaryAction={
+                <IconButton aria-label="play" >
+                  <PlayCircleFilledWhiteRoundedIcon />
+                </IconButton>
+              }
+            >
+              <ListItemText primary={item.name} />
+            </ListItem>
+          ))}
+        </List>
+      </div>
+      <div className="playerSection">
+        <audio controls>
+          <source src={url} type="audio/mpeg" />
+          Your browser does not support the audio tag.
+        </audio>
       </div>
     </div>
   );
 };
 
 export default Player;
+
