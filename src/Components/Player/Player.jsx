@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import "./Player.css";
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
@@ -11,9 +10,9 @@ import IconButton from '@mui/material/IconButton';
 import PlayCircleFilledWhiteRoundedIcon from '@mui/icons-material/PlayCircleFilledWhiteRounded';
 
 const Player = () => {
-
-  const [url, setUrl] = useState();
+  const [url, setUrl] = useState(null); // State to store the selected audio URL
   const [playlist, setPlaylist] = useState([]);
+
   const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
     clipPath: 'inset(50%)',
@@ -26,9 +25,10 @@ const Player = () => {
     width: 1,
   });
 
+  // Function to handle file upload
   const handleChange = (e) => {
     const files = e.target.files;
-  
+
     Promise.all(Array.from(files).map(file => {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -47,11 +47,8 @@ const Player = () => {
       console.error('Error reading file:', error);
     });
   };
-  
-  const handleClick = (url) => {
-    console.log(playlist)
-    setUrl(url);
-  };
+
+
 
   return (
     <div className="player">
@@ -74,9 +71,9 @@ const Player = () => {
             <ListItem
               key={index}
               disableGutters
-              onClick={() => handleClick(item.url)}
+              onClick={() =>  setUrl(item.url)} // Pass the URL to handleClick
               secondaryAction={
-                <IconButton aria-label="play" >
+                <IconButton aria-label="play">
                   <PlayCircleFilledWhiteRoundedIcon />
                 </IconButton>
               }
@@ -87,14 +84,15 @@ const Player = () => {
         </List>
       </div>
       <div className="playerSection">
-        <audio controls>
-          <source src={url} type="audio/mpeg" />
-          Your browser does not support the audio tag.
-        </audio>
+        {url && ( // Render audio element only if URL is selected
+          <audio controls>
+            <source src={url} type="audio/mpeg" />
+            Your browser does not support the audio tag.
+          </audio>
+        )}
       </div>
     </div>
   );
 };
 
 export default Player;
-
