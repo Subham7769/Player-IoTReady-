@@ -88,7 +88,7 @@ const Player = () => {
                 sx={{
                   backgroundColor:
                     currentTrackIndex === index ? "#c7eaf4" : "transparent",
-                  "&:hover": { backgroundColor: "#c7eaf4" },
+                  "&:hover": { backgroundColor: "#9ae6fe" },borderRadius: 2
                 }}
               >
                 <ListItemText primary={item.name} />
