@@ -2,11 +2,18 @@
     display: flex;
     justify-content: center;
     gap: 1rem;
-    border: 1px solid #ccc;
+    border: 1px solid #0bc2fa;
     border-radius: 1rem;
     padding: 1rem;
     width: 80vw;
     height: 80vh;
+    margin: 2rem;
+    box-shadow: 10px 10px 50px #99dff5,
+                -10px 10px 50px #99dff5,
+                10px -10px 50px #99dff5,
+                -10px -10px 50px #99dff5;
+
+
 }
 
 .trackSection {
@@ -14,8 +21,9 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border: 1px solid #ccc;
+    border: 1px solid #0bc2fa;
     border-radius: 0.5rem;
+    border-top: 5px solid #0bc2fa;
 }
 
 .uploadSection {
