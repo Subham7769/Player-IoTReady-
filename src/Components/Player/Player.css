@@ -1,3 +1,8 @@
+#root{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .playerBody {
     display: flex;
     justify-content: center;
@@ -5,9 +10,9 @@
     border: 1px solid #0bc2fa;
     border-radius: 1rem;
     padding: 1rem;
-    width: 80vw;
-    height: 80vh;
-    margin: 2rem;
+    width: 75vw;
+    height: 75vh;
+    margin: 3rem;
     box-shadow: 10px 10px 50px #99dff5,
                 -10px 10px 50px #99dff5,
                 10px -10px 50px #99dff5,
