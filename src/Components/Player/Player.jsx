@@ -87,8 +87,8 @@ const Player = () => {
                 onClick={() => handleTrackClick(index)}
                 sx={{
                   backgroundColor:
-                    currentTrackIndex === index ? "#f0f0f0" : "transparent",
-                  "&:hover": { backgroundColor: "#f0f0f0" },
+                    currentTrackIndex === index ? "#c7eaf4" : "transparent",
+                  "&:hover": { backgroundColor: "#c7eaf4" },
                 }}
               >
                 <ListItemText primary={item.name} />
